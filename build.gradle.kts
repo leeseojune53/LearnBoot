@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.diffplug.spotless") version "6.25.0"
 }
 
 group = "org.example"
@@ -9,11 +10,13 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
+allprojects {
+    apply(plugin = "com.diffplug.spotless")
 
-tasks.test {
-    useJUnitPlatform()
+    spotless {
+        java {
+            palantirJavaFormat()
+        }
+    }
+
 }

@@ -1,11 +1,11 @@
 package io.github.leeseojune53.bean;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import io.github.leeseojune53.bean.testsupport.TestBeanClass;
 import io.github.leeseojune53.bean.testsupport.TestCustomBeanClass;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class BeanScannerTest {
 
@@ -22,5 +22,4 @@ class BeanScannerTest {
         assertThat(result.isEmpty()).isFalse();
         assertThat(result).contains(TestBeanClass.class, TestCustomBeanClass.class);
     }
-
 }

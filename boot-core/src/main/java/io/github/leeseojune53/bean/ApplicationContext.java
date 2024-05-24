@@ -17,14 +17,12 @@ public class ApplicationContext {
      * with injection dependencies
      */
     public void loadBean() {
-        SCANNER.scan()
-                .forEach(clazz -> {
-                    try {
-                        BEANS.put(clazz, clazz.newInstance());
-                    } catch (InstantiationException | IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                });
+        SCANNER.scan().forEach(clazz -> {
+            try {
+                BEANS.put(clazz, clazz.newInstance());
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        });
     }
-
 }

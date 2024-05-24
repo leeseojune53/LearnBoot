@@ -1,9 +1,8 @@
 package io.github.leeseojune53.bean;
 
 import io.github.leeseojune53.bean.annotation.Bean;
-import org.reflections.Reflections;
-
 import java.util.Set;
+import org.reflections.Reflections;
 
 /**
  * If a class is annotated with {@code @Bean}, it will be scanned by the {@link BeanScanner}.
@@ -22,6 +21,4 @@ public class BeanScanner {
         var reflections = new Reflections(basePackage);
         return reflections.getTypesAnnotatedWith(Bean.class);
     }
-
-
 }
