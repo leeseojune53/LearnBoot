@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/boot-core" />
+            <option value="$PROJECT_DIR$/boot-web" />
             <option value="$PROJECT_DIR$/example-application" />
           </set>
         </option>
