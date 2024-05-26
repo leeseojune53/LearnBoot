@@ -1,28 +1,69 @@
 package io.github.leeseojune53.bean;
 
+import org.reflections.Reflections;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
 
 public class ApplicationContext {
 
     private static final Map<Class<?>, Object> BEANS = new HashMap<>();
     private static final BeanScanner SCANNER = new BeanScanner("io.github.leeseojune53");
 
-    public <T> T getBean(Class<T> clazz) {
-        return null;
+    @SuppressWarnings("unchecked")
+    public <T> T get(Class<T> clazz) {
+        return (T) Optional.ofNullable(
+                BEANS.get(clazz)
+        ).orElseThrow(() -> new IllegalArgumentException("Bean not found."));
     }
 
-    /**
-     * TODO : Implement this method
-     * with injection dependencies
-     */
     public void loadBean() {
-        SCANNER.scan().forEach(clazz -> {
+        var beanTypes = SCANNER.scan();
+        generateRecursion(beanTypes, beanTypes.size(), 0);
+    }
+
+    private void generateRecursion(Set<Class<?>> retrySet, int beanCount, int attempt) {
+        var newRetrySet = new HashSet<Class<?>>();
+
+        if (attempt > beanCount) throw new RuntimeException("Circular dependency detected." + retrySet.toString());
+
+        retrySet.forEach(it -> {
             try {
-                BEANS.put(clazz, clazz.newInstance());
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
+                BEANS.put(it, generateBean(it, BEANS));
+            } catch (InvocationTargetException | InstantiationException | IllegalAccessException | RuntimeException e) {
+                newRetrySet.add(it);
             }
         });
+
+        if (!newRetrySet.isEmpty()) generateRecursion(newRetrySet, beanCount, attempt + 1);
     }
+
+    private Object generateBean(Class<?> clazz, Map<Class<?>, Object> beans)
+            throws InstantiationException, IllegalAccessException, InvocationTargetException {
+
+        if (clazz.getDeclaredConstructors().length != 1)
+            throw new RuntimeException("Constructor must be only one.");
+
+        var constructor = clazz.getDeclaredConstructors()[0];
+
+        var constructorParameterSize = constructor.getParameters().length;
+
+        var arguments = Arrays.stream(constructor.getParameters())
+                .map(it -> beans.getOrDefault(it.getType(), null))
+                .filter(Objects::nonNull)
+                .toArray();
+
+        if (constructorParameterSize != arguments.length)
+            throw new RuntimeException("Constructor parameter size and arguments size must be same.");
+
+        return constructor.newInstance(arguments);
+    }
+
 }
