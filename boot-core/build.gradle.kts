@@ -11,6 +11,8 @@ repositories {
 
 dependencies {
     implementation("org.reflections:reflections:0.10.2")
+    implementation("net.bytebuddy:byte-buddy:1.14.16")
+    implementation("org.yaml:snakeyaml:2.2")
 
     testImplementation("org.assertj:assertj-core:3.25.3")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))

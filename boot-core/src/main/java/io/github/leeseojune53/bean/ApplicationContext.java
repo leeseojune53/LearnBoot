@@ -1,5 +1,9 @@
 package io.github.leeseojune53.bean;
 
+import io.github.leeseojune53.aop.BaseAopSpec;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.matcher.ElementMatchers;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
@@ -47,11 +51,18 @@ public class ApplicationContext {
 
     private Object generateBean(Class<?> clazz, Map<Class<?>, Object> beans)
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
+        var buddy = new ByteBuddy()
+                .subclass(clazz)
+                .method(ElementMatchers.any())
+                .intercept(MethodDelegation.to(BaseAopSpec.class))
+                .make()
+                .load(clazz.getClassLoader())
+                .getLoaded();
 
-        if (clazz.getDeclaredConstructors().length != 1)
+        if (buddy.getDeclaredConstructors().length == 0 || buddy.getDeclaredConstructors().length > 1)
             throw new RuntimeException("Constructor must be only one.");
 
-        var constructor = clazz.getDeclaredConstructors()[0];
+        var constructor = buddy.getDeclaredConstructors()[0];
 
         var constructorParameterSize = constructor.getParameters().length;
 
