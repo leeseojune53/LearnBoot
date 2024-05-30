@@ -32,7 +32,7 @@ public class BaseAopSpec {
 
         Object result;
         try {
-            result = superMethod.invoke(self, method, args, superMethod);
+            result = superMethod.invoke(self, args);
         } catch (Exception e) {
             aopSpecs.reversed().forEach(AopSpec::error);
             throw new RuntimeException(e);

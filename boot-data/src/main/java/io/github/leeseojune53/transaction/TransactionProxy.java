@@ -10,14 +10,8 @@ public class TransactionProxy implements AopSpec {
 
     @Override
     public boolean condition(Method method) {
-        if(method.getAnnotation(Transaction.class) != null)
-            return true;
-
-        if(method.getClass().getAnnotation(Transaction.class) != null)
-            return true;
-
-        return false;
-
+        return method.isAnnotationPresent(Transaction.class) ||
+                method.getDeclaringClass().isAnnotationPresent(Transaction.class);
     }
 
     @Override
