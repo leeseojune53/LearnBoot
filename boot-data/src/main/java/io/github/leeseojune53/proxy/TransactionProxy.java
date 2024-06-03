@@ -1,6 +1,6 @@
-package io.github.leeseojune53.transaction;
+package io.github.leeseojune53.proxy;
 
-import io.github.leeseojune53.annotation.Transaction;
+import io.github.leeseojune53.annotation.Transactional;
 import io.github.leeseojune53.aop.AopSpec;
 
 import java.lang.reflect.Method;
@@ -10,8 +10,8 @@ public class TransactionProxy implements AopSpec {
 
     @Override
     public boolean condition(Method method) {
-        return method.isAnnotationPresent(Transaction.class) ||
-                method.getDeclaringClass().isAnnotationPresent(Transaction.class);
+        return method.isAnnotationPresent(Transactional.class) ||
+                method.getDeclaringClass().isAnnotationPresent(Transactional.class);
     }
 
     @Override

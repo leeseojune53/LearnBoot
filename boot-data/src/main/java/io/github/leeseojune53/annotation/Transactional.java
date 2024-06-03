@@ -16,5 +16,5 @@ import static java.lang.annotation.ElementType.TYPE;
         METHOD,
         TYPE
 })
-public @interface Transaction {
+public @interface Transactional {
 }
