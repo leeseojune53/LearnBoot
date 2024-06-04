@@ -14,12 +14,12 @@ public class SessionManager {
         return session.get();
     }
 
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
+    public static Transaction getTransaction() {
+        return getInstance().transaction;
     }
 
-    public Transaction getTransaction() {
-        return transaction;
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
     }
 
 }
