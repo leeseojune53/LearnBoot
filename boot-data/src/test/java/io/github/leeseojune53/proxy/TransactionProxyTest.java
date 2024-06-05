@@ -3,12 +3,9 @@ package io.github.leeseojune53.proxy;
 import io.github.leeseojune53.bean.ApplicationContext;
 import io.github.leeseojune53.proxy.testsupport.TransactionService;
 import io.github.leeseojune53.session.SessionManager;
-import io.github.leeseojune53.transaction.Transaction;
 import org.junit.jupiter.api.Test;
 
-
 class TransactionProxyTest {
-
 
     @Test
     void testWithTransaction() {
@@ -20,7 +17,6 @@ class TransactionProxyTest {
         var testClass = applicationContext.get(TransactionService.class);
 
         testClass.transactionAndDoSomething();
-
     }
 
     @Test
@@ -34,5 +30,4 @@ class TransactionProxyTest {
 
         testClass.doSomething();
     }
-
 }
