@@ -26,6 +26,7 @@ public class TransactionProxy implements AopSpec {
     public void after() {
         // Transaction 종료
         SessionManager.getTransaction().commit();
+        SessionManager.getTransaction().close();
         System.out.println("Transaction End");
     }
 
@@ -33,6 +34,7 @@ public class TransactionProxy implements AopSpec {
     public void error() {
         // Transaction Rollback
         SessionManager.getTransaction().rollback();
+        SessionManager.getTransaction().close();
         System.out.println("Transaction Rollback");
     }
 }

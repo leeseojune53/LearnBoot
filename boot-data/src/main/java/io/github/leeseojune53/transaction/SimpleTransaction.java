@@ -1,44 +1,36 @@
 package io.github.leeseojune53.transaction;
 
+import io.github.leeseojune53.connection.Connection;
 import io.github.leeseojune53.connection.SimpleConnection;
 
 public class SimpleTransaction implements Transaction {
 
-    private final SimpleConnection connection;
+    private final Connection connection;
+
+    public SimpleTransaction(Connection connection) {
+        this.connection = connection;
+    }
 
 
     @Override
     public void begin() {
-        connection.
+        connection.setAutoCommit(false);
     }
 
     @Override
     public void commit() {
-
+        connection.commit();
     }
 
     @Override
     public void rollback() {
-
+        connection.rollback();
     }
 
     @Override
     public void close() {
-
+        connection.setAutoCommit(true);
+        connection.close();
     }
 
-    @Override
-    public boolean isBegin() {
-        return false;
-    }
-
-    @Override
-    public boolean isRollback() {
-        return false;
-    }
-
-    @Override
-    public boolean isClosed() {
-        return false;
-    }
 }

@@ -10,9 +10,4 @@ public interface Transaction {
 
         void close();
 
-        boolean isBegin();
-
-        boolean isRollback();
-
-        boolean isClosed();
 }
