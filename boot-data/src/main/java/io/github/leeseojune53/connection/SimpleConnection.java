@@ -1,6 +1,5 @@
 package io.github.leeseojune53.connection;
 
-
 // TODO Exception handling
 public class SimpleConnection implements Connection {
 

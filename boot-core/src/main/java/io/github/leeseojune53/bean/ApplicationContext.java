@@ -1,11 +1,6 @@
 package io.github.leeseojune53.bean;
 
 import io.github.leeseojune53.aop.BaseAopSpec;
-import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.implementation.MethodDelegation;
-import net.bytebuddy.matcher.ElementMatchers;
-import org.reflections.Reflections;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,7 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
+import net.bytebuddy.ByteBuddy;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.matcher.ElementMatchers;
 
 public class ApplicationContext {
 
@@ -23,9 +20,8 @@ public class ApplicationContext {
 
     @SuppressWarnings("unchecked")
     public <T> T get(Class<T> clazz) {
-        return (T) Optional.ofNullable(
-                BEANS.get(clazz)
-        ).orElseThrow(() -> new IllegalArgumentException("Bean not found."));
+        return (T) Optional.ofNullable(BEANS.get(clazz))
+                .orElseThrow(() -> new IllegalArgumentException("Bean not found."));
     }
 
     public void loadBean() {
@@ -76,5 +72,4 @@ public class ApplicationContext {
 
         return constructor.newInstance(arguments);
     }
-
 }

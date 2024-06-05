@@ -2,12 +2,11 @@ package io.github.leeseojune53.transaction;
 
 public interface Transaction {
 
-        void begin();
+    void begin();
 
-        void commit();
+    void commit();
 
-        void rollback();
+    void rollback();
 
-        void close();
-
+    void close();
 }

@@ -3,7 +3,6 @@ package io.github.leeseojune53.bean;
 import io.github.leeseojune53.bean.annotation.Bean;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.reflections.Reflections;
 
 /**
@@ -21,7 +20,8 @@ public class BeanScanner {
     public Set<Class<?>> scan() {
         System.out.println("Scanning " + basePackage + " for beans");
         var reflections = new Reflections(basePackage);
-        return reflections.getTypesAnnotatedWith(Bean.class)
-                .stream().filter(it -> !it.isAnnotation()).collect(Collectors.toSet());
+        return reflections.getTypesAnnotatedWith(Bean.class).stream()
+                .filter(it -> !it.isAnnotation())
+                .collect(Collectors.toSet());
     }
 }

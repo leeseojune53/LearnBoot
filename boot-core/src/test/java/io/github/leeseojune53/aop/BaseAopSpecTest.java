@@ -4,7 +4,6 @@ import io.github.leeseojune53.aop.testsupport.TestBeanClass;
 import io.github.leeseojune53.bean.ApplicationContext;
 import org.junit.jupiter.api.Test;
 
-
 class BaseAopSpecTest {
 
     @Test
@@ -15,5 +14,4 @@ class BaseAopSpecTest {
 
         testBean.doSomething();
     }
-
 }

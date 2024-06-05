@@ -1,7 +1,6 @@
 package io.github.leeseojune53.transaction;
 
 import io.github.leeseojune53.connection.Connection;
-import io.github.leeseojune53.connection.SimpleConnection;
 
 public class SimpleTransaction implements Transaction {
 
@@ -10,7 +9,6 @@ public class SimpleTransaction implements Transaction {
     public SimpleTransaction(Connection connection) {
         this.connection = connection;
     }
-
 
     @Override
     public void begin() {
@@ -32,5 +30,4 @@ public class SimpleTransaction implements Transaction {
         connection.setAutoCommit(true);
         connection.close();
     }
-
 }

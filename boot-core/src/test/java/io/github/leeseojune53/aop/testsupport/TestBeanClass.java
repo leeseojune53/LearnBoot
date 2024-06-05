@@ -6,5 +6,4 @@ import io.github.leeseojune53.bean.annotation.Bean;
 public class TestBeanClass {
 
     public void doSomething() {}
-
 }

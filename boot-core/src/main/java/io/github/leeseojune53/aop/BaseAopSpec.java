@@ -1,5 +1,7 @@
 package io.github.leeseojune53.aop;
 
+import java.lang.reflect.Method;
+import java.util.List;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
@@ -7,23 +9,19 @@ import net.bytebuddy.implementation.bind.annotation.SuperMethod;
 import net.bytebuddy.implementation.bind.annotation.This;
 import org.reflections.Reflections;
 
-import java.lang.reflect.Method;
-import java.util.List;
-
 public class BaseAopSpec {
 
     private static final List<? extends AopSpec> aopSpecs = new Reflections("io.github.leeseojune53")
-            .getSubTypesOf(AopSpec.class)
-            .stream()
-            .map(aClass -> {
-                try {
-                    return aClass.getConstructor().newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            })
-            .toList();
+            .getSubTypesOf(AopSpec.class).stream()
+                    .map(aClass -> {
+                        try {
+                            return aClass.getConstructor().newInstance();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    })
+                    .toList();
 
     @RuntimeType
     public static Object intercept(
@@ -44,6 +42,4 @@ public class BaseAopSpec {
         aopSpecs.reversed().forEach(AopSpec::after);
         return result;
     }
-
-
 }

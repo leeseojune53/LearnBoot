@@ -10,13 +10,11 @@ public class SessionManager {
     private final Transaction transaction;
 
     public SessionManager() {
-        this.transaction = new SimpleTransaction(
-                ConnectionFactory.getConnection()
-        );
+        this.transaction = new SimpleTransaction(ConnectionFactory.getConnection());
     }
 
     public static SessionManager getInstance() {
-        if(session.get() == null) {
+        if (session.get() == null) {
             session.set(new SessionManager());
         }
         return session.get();
@@ -33,5 +31,4 @@ public class SessionManager {
     public static void clean() {
         session.remove();
     }
-
 }
