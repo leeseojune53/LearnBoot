@@ -13,6 +13,8 @@ class TransactionProxyTest {
     @Test
     void testWithTransaction() {
         // TODO Test 시 DI 받는거 고민해야함
+
+        SessionManager.clean();
         var applicationContext = new ApplicationContext();
         applicationContext.loadBean();
         var testClass = applicationContext.get(TransactionService.class);
@@ -24,6 +26,8 @@ class TransactionProxyTest {
     @Test
     void testWithoutTransaction() {
         // TODO Test 시 DI 받는거 고민해야함
+
+        SessionManager.clean();
         var applicationContext = new ApplicationContext();
         applicationContext.loadBean();
         var testClass = applicationContext.get(TransactionService.class);

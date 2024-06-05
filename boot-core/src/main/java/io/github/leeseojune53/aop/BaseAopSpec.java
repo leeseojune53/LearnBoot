@@ -28,6 +28,9 @@ public class BaseAopSpec {
     @RuntimeType
     public static Object intercept(
             @This Object self, @Origin Method method, @AllArguments Object[] args, @SuperMethod Method superMethod) {
+        var aopSpecs = BaseAopSpec.aopSpecs.stream()
+                .filter(aopSpec -> aopSpec.condition(method))
+                .toList();
         aopSpecs.forEach(AopSpec::before);
 
         Object result;

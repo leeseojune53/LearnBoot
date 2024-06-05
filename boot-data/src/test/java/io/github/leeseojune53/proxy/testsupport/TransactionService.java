@@ -11,7 +11,6 @@ public class TransactionService {
         System.out.println("TransactionService.transactionAndDoSomething");
     }
 
-    @Transactional
     public void doSomething() {
         System.out.println("TransactionService.doSomething");
     }
