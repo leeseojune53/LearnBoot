@@ -24,6 +24,10 @@ public class SessionManager {
         return getInstance().transaction;
     }
 
+    public static boolean isTransactionActive() {
+        return session.get() != null;
+    }
+
     /**
      * ThreadLocal 변수 제거
      * 테스트 시 동일 Thread 사용하여 이미 close된 Connection 오류가 발생하여 cleanup 함수 추가.
