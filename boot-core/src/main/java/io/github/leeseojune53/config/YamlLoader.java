@@ -16,6 +16,9 @@ public class YamlLoader implements ConfigLoader {
         configs = Collections.unmodifiableMap(yaml.load(inputStream));
     }
 
+    // TODO @Property로 Yaml 설정 값 가져올 수 있게 하기.
+
+
     @Override
     public String get(String key) {
         if (configs.isEmpty()) {
@@ -23,5 +26,6 @@ public class YamlLoader implements ConfigLoader {
         }
         System.out.println(configs.get("test"));
         return (String) configs.get(key);
+        // TODO config에 중첩된 구조를 어떻게 가져올 수 있을지.. Map<String, Map<String, Map<String, String>>>.... 이런 형식은 아닌것같은데
     }
 }
