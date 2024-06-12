@@ -20,12 +20,19 @@ public class YamlLoader implements ConfigLoader {
 
 
     @Override
-    public String get(String key) {
+    public <T> T get(String key) {
         if (configs.isEmpty()) {
             load();
         }
-        System.out.println(configs.get("test"));
-        return (String) configs.get(key);
-        // TODO config에 중첩된 구조를 어떻게 가져올 수 있을지.. Map<String, Map<String, Map<String, String>>>.... 이런 형식은 아닌것같은데
+
+        var keys = key.split("\\.");
+
+        Map<String, Object> temp = configs;
+        for (int i = 0; i < keys.length - 1; i++) {
+            temp = (Map<String, Object>) temp.get(keys[i]);
+        }
+
+        return (T) configs.get(key);
     }
+
 }
